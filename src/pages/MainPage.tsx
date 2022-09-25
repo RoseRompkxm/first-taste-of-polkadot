@@ -13,14 +13,14 @@ export default function MainPage() {
         return {
             ...account,
             id: account.address,
-        }
+        };
     });
     const blocksWithId = blocks.map(block => {
         return {
             ...block,
             id: block.hash,
-        }
-    })
+        };
+    });
     return (
         <MainPageStyle>
             <div className="container">
@@ -29,7 +29,7 @@ export default function MainPage() {
                     {accounts.length === 0
                         ? 'No blocks'
                         : <List items={blocksWithId} render={(index) => {
-                            return <Block {...blocks[index]} />
+                            return <Block {...blocks[index]} />;
                         }} />
                     }
                 </div>
@@ -38,7 +38,7 @@ export default function MainPage() {
                     {accounts.length === 0
                         ? 'No account'
                         : <List items={accountsWithId} render={(index) => {
-                            return <Account {...accounts[index]} />
+                            return <Account {...accounts[index]} />;
                         }} />
                     }
                 </div>

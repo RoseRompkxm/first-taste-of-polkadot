@@ -1,8 +1,8 @@
+import { dolpinNetworkConfig } from 'constants/network';
 import { useState } from 'react';
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import useAsyncEffect from 'use-async-effect';
 // only Dolpin testnet is supported in this demo
-import { dolpinNetworkConfig } from 'constants/network';
 import { info } from 'utils/logger';
 
 const useApi = () => {
@@ -24,7 +24,7 @@ const useApi = () => {
         if (!isMounted()) {
             setApi(apiCreated);
         }
-    }, [])
+    }, []);
 
     return { api, setProvider };
 };

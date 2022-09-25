@@ -1,5 +1,6 @@
-import BN from 'bn.js';
 import { DOL_DECIMAL } from 'constants/chain';
+import React from 'react';
+import BN from 'bn.js';
 import { IAccount } from 'types/Account';
 
 const DECIMALS = new BN(10).pow(new BN(DOL_DECIMAL));
@@ -9,7 +10,7 @@ const Account = (account: IAccount) => {
         <div>{account.name}</div>
         <div>{account.address}</div>
         <div>{account.balance.div(DECIMALS).toString()} DOL</div>
-    </div>
-}
+    </div>;
+};
 
 export default Account;

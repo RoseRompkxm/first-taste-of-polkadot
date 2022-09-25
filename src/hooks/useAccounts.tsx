@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import BN from 'bn.js';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import { web3AccountsSubscribe } from '@polkadot/extension-dapp';
 import { Unsubcall, InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 import { useAsyncEffect } from 'use-async-effect';
 import { info, warn } from 'utils/logger';
-import useApi from './useApi';
+import useApi from 'hooks/useApi';
 import { IAccount } from 'types/Account';
 import { isExtensionReady } from 'utils/extension';
 
@@ -22,7 +22,7 @@ const useAccounts = () => {
     // fetch initial accounts and subscribe account listener
     useAsyncEffect(async (isMounted) => {
         if (!api) {
-            warn(`api is not ready`);
+            warn('api is not ready');
             return;
         }
         if (!(await isExtensionReady())) {
@@ -30,15 +30,15 @@ const useAccounts = () => {
             return;
         }
 
-        // avoid old subscriptions come to play
-        unsubsribeAccount && unsubsribeAccount();
-
-        unsubsribeAccount = await web3AccountsSubscribe(async (injectedAccounts) => {
-            console.log('=== update accounts!');
-            if (isMounted()) {
-                setRawAccounts(injectedAccounts);
-            }
-        });
+        // only sub once
+        if (!unsubsribeAccount) {
+            unsubsribeAccount = await web3AccountsSubscribe(async (injectedAccounts) => {
+                console.log('=== update accounts!');
+                if (isMounted()) {
+                    setRawAccounts(injectedAccounts);
+                }
+            });
+        }
     }, () => {
         info('unsubsribe account listener!');
         unsubsribeAccount && unsubsribeAccount();
@@ -47,24 +47,24 @@ const useAccounts = () => {
     // patch accounts data
     useAsyncEffect(async (isMounted) => {
         if (!api) {
-            warn(`api is not ready`);
+            warn('api is not ready');
             return;
         }
 
         if (isMounted()) {
-            setAccounts(rawAccounts.map((account, i) => ({
+            setAccounts(rawAccounts.map((account) => ({
                 name: account.meta.name || '',
                 address: account.address,
                 balance: new BN(0),
             })));
         }
         
-    }, [api, rawAccounts])
+    }, [api, rawAccounts]);
 
     // subscribe balance listener
     useAsyncEffect(async (isMounted) => {
         if (!api) {
-            warn(`api is not ready`);
+            warn('api is not ready');
             return;
         }
         if (!(await isExtensionReady())) {
@@ -99,7 +99,7 @@ const useAccounts = () => {
     }, [api, rawAccounts]);
 
     return { accounts };
-}
+};
 
 export default useAccounts;
 

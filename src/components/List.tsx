@@ -17,19 +17,19 @@ const List = ({ items, render }: IListProps) => {
         nodeRef: createRef<HTMLDivElement>(),
     }));
     return <div className="list">
-        {itemsWithRef.map(({ id, nodeRef, ...rest }, index) => (
+        {itemsWithRef.map(({ id, nodeRef }, index) => (
             <CSSTransition
-              key={id}
-              nodeRef={nodeRef}
-              timeout={500}
-              classNames="list-transition-item"
+                key={id}
+                nodeRef={nodeRef}
+                timeout={500}
+                classNames="list-transition-item"
             >
                 <div ref={nodeRef} className="list-item">
                     {render(index)}
                 </div>
             </CSSTransition>
-          ))}
-    </div>
-}
+        ))}
+    </div>;
+};
 
 export default List;
