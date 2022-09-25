@@ -1,4 +1,4 @@
 export type IBlock = {
-    blockNumber: number;
+    number: number;
     hash: string;
 };

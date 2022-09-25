@@ -1,5 +1,5 @@
-import useApi from 'hooks/useApi';
 import { useState } from 'react';
+import useApi from 'hooks/useApi';
 import { Unsubcall } from '@polkadot/extension-inject/types';
 import { useAsyncEffect } from 'use-async-effect';
 import { info, warn } from 'utils/logger';
@@ -31,15 +31,18 @@ const useBlocks = ({ limit }: IUseBlockProps) => {
             unsubsribeBlocks = await api.rpc.chain.subscribeNewHeads((lastHeader) => {
                 console.log(`last block #${lastHeader.number} has hash ${lastHeader.hash}`);
                 console.log({ blocks }, limit);
-                const currentBlocks = [
-                    ...blocks,
-                    {
-                        blockNumber: lastHeader.number.toNumber(),
-                        hash: lastHeader.hash.toString(),
-                    }
-                ];
                 if (isMounted()) {
-                    setBlocks(limit ? currentBlocks.slice(0, limit) : currentBlocks);
+                    // to make the `blocks` is the latest reference
+                    setBlocks((blocks) => {
+                        const currentBlocks = [
+                            ...blocks,
+                            {
+                                number: lastHeader.number.toNumber(),
+                                hash: lastHeader.hash.toString(),
+                            }
+                        ];
+                        return limit ? currentBlocks.slice(0, limit) : currentBlocks;
+                    });
                 }
             });
         } 

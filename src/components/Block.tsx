@@ -3,7 +3,7 @@ import { IBlock } from 'types/Block';
 
 const Block = (block: IBlock) => {
     return <div className="block">
-        <div>{block.blockNumber}</div>
+        <div>{block.number}</div>
         <div>{block.hash}</div>
     </div>;
 };

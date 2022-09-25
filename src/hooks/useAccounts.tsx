@@ -33,7 +33,6 @@ const useAccounts = () => {
         // only sub once
         if (!unsubsribeAccount) {
             unsubsribeAccount = await web3AccountsSubscribe(async (injectedAccounts) => {
-                console.log('=== update accounts!');
                 if (isMounted()) {
                     setRawAccounts(injectedAccounts);
                 }
@@ -80,7 +79,6 @@ const useAccounts = () => {
         unsubsribeBalance && unsubsribeBalance();
 
         unsubsribeBalance = await api.query.system.account.multi(rawAccounts.map(account => account.address), (dataItems) => {
-            console.log('== updated balance', dataItems.length);
             if (!isMounted()) {
                 return;
             }
