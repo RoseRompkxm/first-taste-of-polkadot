@@ -1,7 +1,6 @@
-import React, { useRef, createRef } from 'react';
+import React, { createRef } from 'react';
 import {
     CSSTransition,
-    TransitionGroup,
 } from 'react-transition-group';
 
 type IListProps = {
@@ -12,7 +11,7 @@ type IListProps = {
     render: (index: number) => React.ReactNode;
 }
 
-export default ({ items, render }: IListProps) => {
+const List = ({ items, render }: IListProps) => {
     const itemsWithRef = items.map(item => ({
         ...item,
         nodeRef: createRef<HTMLDivElement>(),
@@ -32,3 +31,5 @@ export default ({ items, render }: IListProps) => {
           ))}
     </div>
 }
+
+export default List;

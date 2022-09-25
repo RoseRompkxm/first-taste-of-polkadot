@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import useAsyncEffect from 'use-async-effect';
 // only Dolpin testnet is supported in this demo
 import { dolpinNetworkConfig } from 'constants/network';
 import { info } from 'utils/logger';
 
-export default () => {
+const useApi = () => {
     const [provider, setProvider] = useState(() => new WsProvider(dolpinNetworkConfig.PROVIDER_SOCKET));
     const [api, setApi] = useState<ApiPromise | null>(null);
 
@@ -27,4 +27,6 @@ export default () => {
     }, [])
 
     return { api, setProvider };
-}
+};
+
+export default useApi;
