@@ -25,18 +25,18 @@ export default function MainPage() {
         <MainPageStyle>
             <div className="container">
                 <div className="section">
-                    <h3>Recent Blocks</h3>
+                    <h3 className="title">Recent Blocks</h3>
                     {accounts.length === 0
-                        ? 'No blocks'
+                        ? <div className="no-results">No blocks</div>
                         : <List items={blocksWithId} render={(index) => {
                             return <Block {...blocks[index]} />;
                         }} />
                     }
                 </div>
                 <div className="section">
-                    <h3>Accounts</h3>
+                    <h3 className="title">Accounts</h3>
                     {accounts.length === 0
-                        ? 'No account'
+                        ? <div className="no-results">No account</div>
                         : <List items={accountsWithId} render={(index) => {
                             return <Account {...accounts[index]} />;
                         }} />
