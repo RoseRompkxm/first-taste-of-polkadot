@@ -1,9 +1,6 @@
 import { useContext } from 'react';
 import { ApiContext } from 'context/ApiContext';
 
-const useApi = () => {
-    const { api, extensionReady } = useContext(ApiContext);
-    return { api, extensionReady };
-};
+const useApi = () => useContext(ApiContext);
 
 export default useApi;

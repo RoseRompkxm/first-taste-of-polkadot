@@ -15,10 +15,13 @@ export default styled.div`
         margin-top: 2rem;
     }
 
-    .download-link {
+    .download-desc {
         font-size: 1.2rem;
-        display: inline-block;
+        line-height: 1.3;
+    }
+    .download-link {
         margin: 0 .2rem;
         text-decoration: underline;
+        display: inline-block;
     }
 `;

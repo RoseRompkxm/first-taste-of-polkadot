@@ -3,7 +3,6 @@ import useApi from 'hooks/useApi';
 import { Unsubcall } from '@polkadot/extension-inject/types';
 import { useAsyncEffect } from 'use-async-effect';
 import { info, warn } from 'utils/logger';
-import { isExtensionReady } from 'utils/extension';
 import { IBlock } from 'types/Block';
 
 type IUseBlockProps = {
@@ -14,14 +13,14 @@ let unsubsribeBlocks: Unsubcall | null = null;
 
 const useBlocks = ({ limit }: IUseBlockProps) => {
     const [blocks, setBlocks] = useState<IBlock[]>([]);
-    const { api } = useApi();
+    const { api, extensionReady } = useApi();
 
     useAsyncEffect(async (isMounted) => {
         if (!api) {
             warn('api is not ready');
             return;
         }
-        if (!(await isExtensionReady())) {
+        if (!extensionReady) {
             warn('no extension detected');
             return;
         }
