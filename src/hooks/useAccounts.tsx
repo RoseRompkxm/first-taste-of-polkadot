@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import BN from 'bn.js';
-// import { toast } from 'react-toastify';
 import { web3AccountsSubscribe } from '@polkadot/extension-dapp';
 import { Unsubcall, InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 import { useAsyncEffect } from 'use-async-effect';
 import { info, warn } from 'utils/logger';
 import useApi from 'hooks/useApi';
 import { IAccount } from 'types/Account';
-import { isExtensionReady } from 'utils/extension';
 
 // unsubsribe calls
 let unsubsribeAccount: Unsubcall | null = null;
@@ -17,7 +15,7 @@ const useAccounts = () => {
     const [rawAccounts, setRawAccounts] = useState<InjectedAccountWithMeta[]>([]);
     const [accounts, setAccounts] = useState<IAccount[]>([]);
 
-    const { api } = useApi();
+    const { api, extensionReady } = useApi();
 
     // fetch initial accounts and subscribe account listener
     useAsyncEffect(async (isMounted) => {
@@ -29,7 +27,7 @@ const useAccounts = () => {
         }
         // this should not happen because it's already protected from outside, 
         // but we put this here just in case...
-        if (!(await isExtensionReady())) {
+        if (!extensionReady) {
             warn('no extension detected');
             return;
         }
@@ -45,7 +43,7 @@ const useAccounts = () => {
     }, () => {
         info('unsubsribe account listener!');
         unsubsribeAccount && unsubsribeAccount();
-    }, [api]);
+    }, [api, extensionReady]);
 
     // patch accounts data
     useAsyncEffect(async (isMounted) => {
@@ -66,11 +64,15 @@ const useAccounts = () => {
 
     // subscribe balance listener
     useAsyncEffect(async (isMounted) => {
+        // this should not happen because it's already protected from outside, 
+        // but we put this here just in case...
         if (!api) {
             warn('api is not ready');
             return;
         }
-        if (!(await isExtensionReady())) {
+        // this should not happen because it's already protected from outside, 
+        // but we put this here just in case...
+        if (!extensionReady) {
             warn('no extension detected');
             return;
         }

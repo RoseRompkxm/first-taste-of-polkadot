@@ -23,7 +23,11 @@ const LoadingPage = ({ errorType }: ILoadingPageProps) => {
         {
             errorType === ErrorType.NO_EXTENSION && <>
                 <div>No browser extension installed, please install one from
-                    <a href="">here</a>
+                    <a className="download-link"
+                        href="https://chrome.google.com/webstore/detail/polkadot%7Bjs%7D-extension/mopnmbcafieddcagagdcbnhejhlodfdd"
+                        target="_blank"
+                        rel="noreferrer"
+                    >HERE</a>
                 </div>
             </>
         }

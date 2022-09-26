@@ -9,7 +9,7 @@ import useApi from 'hooks/useApi';
 import ErrorPage, { ErrorType } from 'components/ErrorPage';
 
 export default function MainPage() {
-    const { api } = useApi();
+    const { api, extensionReady } = useApi();
     const { accounts } = useAccounts();
     const { blocks } = useBlocks({ limit: 20 });
     const accountsWithId = accounts.map(account => {
@@ -27,6 +27,9 @@ export default function MainPage() {
 
     if (!api) {
         return <ErrorPage errorType={ErrorType.API_CONNECTING} />;
+    }
+    if (!extensionReady) {
+        return <ErrorPage errorType={ErrorType.NO_EXTENSION} />;
     }
     
     return (

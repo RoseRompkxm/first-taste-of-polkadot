@@ -13,6 +13,9 @@ a:visited {
   color: #ccc;
 }
 
+*::-webkit-scrollbar {
+  display: none;
+}
 
 body {
   color: #ccc;

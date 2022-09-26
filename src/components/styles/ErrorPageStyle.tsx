@@ -14,4 +14,11 @@ export default styled.div`
         font-size: 1.2rem;
         margin-top: 2rem;
     }
+
+    .download-link {
+        font-size: 1.2rem;
+        display: inline-block;
+        margin: 0 .2rem;
+        text-decoration: underline;
+    }
 `;

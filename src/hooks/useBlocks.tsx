@@ -29,8 +29,7 @@ const useBlocks = ({ limit }: IUseBlockProps) => {
         // only sub once
         if (!unsubsribeBlocks) {
             unsubsribeBlocks = await api.rpc.chain.subscribeNewHeads((lastHeader) => {
-                console.log(`last block #${lastHeader.number} has hash ${lastHeader.hash}`);
-                console.log({ blocks }, limit);
+                info(`last block #${lastHeader.number} has hash ${lastHeader.hash}`);
                 if (isMounted()) {
                     // to make the `blocks` is the latest reference
                     setBlocks((blocks) => {
