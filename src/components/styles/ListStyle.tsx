@@ -4,7 +4,6 @@ export default styled.div`
   .list {
     height: 80vh;
     overflow-y: scroll;
-    border-top: 1px solid #aaa;
     border-bottom: 1px solid #aaa;
   }
   .list-item {

@@ -7,6 +7,7 @@ export default styled.div`
     padding: 2rem 6rem;
   }
   .no-results {
+    margin-top: 8rem;
     font-size: 1.5rem;
     text-align: center;
   }
@@ -16,5 +17,8 @@ export default styled.div`
   }
   .title {
     text-align: center;
+    padding: 1rem 0;
+    margin: 0;
+    border-bottom: 1px solid #aaa;
   }
 `;

@@ -35,7 +35,7 @@ export default function MainPage() {
                 <div className="section">
                     <h3 className="title">Recent Blocks</h3>
                     {accounts.length === 0
-                        ? <div className="no-results">No blocks</div>
+                        ? <div className="no-results">∅ No blocks</div>
                         : <List items={blocksWithId} render={(index) => {
                             return <Block {...blocks[index]} />;
                         }} />
@@ -44,7 +44,7 @@ export default function MainPage() {
                 <div className="section">
                     <h3 className="title">Accounts</h3>
                     {accounts.length === 0
-                        ? <div className="no-results">No account</div>
+                        ? <div className="no-results">∅ No accounts</div>
                         : <List items={accountsWithId} render={(index) => {
                             return <Account {...accounts[index]} />;
                         }} />
