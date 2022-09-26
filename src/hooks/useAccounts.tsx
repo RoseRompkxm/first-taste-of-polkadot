@@ -21,10 +21,14 @@ const useAccounts = () => {
 
     // fetch initial accounts and subscribe account listener
     useAsyncEffect(async (isMounted) => {
+        // this should not happen because it's already protected from outside, 
+        // but we put this here just in case...
         if (!api) {
             warn('api is not ready');
             return;
         }
+        // this should not happen because it's already protected from outside, 
+        // but we put this here just in case...
         if (!(await isExtensionReady())) {
             warn('no extension detected');
             return;
@@ -77,7 +81,7 @@ const useAccounts = () => {
 
         // avoid old subscriptions come to play
         unsubsribeBalance && unsubsribeBalance();
-
+        // account list might change, so we need to resubscribe balance listener
         unsubsribeBalance = await api.query.system.account.multi(rawAccounts.map(account => account.address), (dataItems) => {
             if (!isMounted()) {
                 return;

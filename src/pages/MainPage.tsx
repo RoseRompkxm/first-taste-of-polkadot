@@ -5,8 +5,11 @@ import Account from 'components/Account';
 import MainPageStyle from 'components/styles/MainPageStyle';
 import useBlocks from 'hooks/useBlocks';
 import Block from 'components/Block';
+import useApi from 'hooks/useApi';
+import ErrorPage, { ErrorType } from 'components/ErrorPage';
 
 export default function MainPage() {
+    const { api } = useApi();
     const { accounts } = useAccounts();
     const { blocks } = useBlocks({ limit: 20 });
     const accountsWithId = accounts.map(account => {
@@ -21,6 +24,11 @@ export default function MainPage() {
             id: block.hash,
         };
     });
+
+    if (!api) {
+        return <ErrorPage errorType={ErrorType.API_CONNECTING} />;
+    }
+    
     return (
         <MainPageStyle>
             <div className="container">
